@@ -301,6 +301,25 @@ class jDateTime
     {
         return self::date($format, $stamp, false, false, $timezone);
     }
+
+     /**
+     * jDateTime::mDate
+     *
+     * Same as jDateTime::gDate method
+     * but this one works as a helper and returns Jalali Date
+     * in case someone doesn't like to pass all those false arguments
+     * to Date method.
+     *
+     *
+     * @author Mohammad R. Tayyebi
+     * @param $format string Acceps format string based on: php.net/date
+     * @param $addseconds int Adds seconds to current datetime
+     * @return string Formatted input
+     */
+    public static function mDate($format, $addseconds = 0)
+    {
+        return self::date($format, false, null, null, null, $addseconds);
+    }
     
     /**
      * jDateTime::Strftime
@@ -516,7 +535,7 @@ class jDateTime
     /**
      * Returns correct names for week days
      */
-    private static function getDayNames($day, $shorten = false, $len = 1, $numeric = false)
+    public static function getDayNames($day, $shorten = false, $len = 1, $numeric = false)
     {
         $days = array(
             'sat' => array(1, 'شنبه'),
@@ -537,7 +556,7 @@ class jDateTime
     /**
      * Returns correct names for months
      */
-    private static function getMonthNames($month, $shorten = false, $len = 3)
+    public static function getMonthNames($month, $shorten = false, $len = 3)
     {
         // Convert
         $months = array(

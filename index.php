@@ -1,15 +1,24 @@
 
 <?php
 require_once dirname(__FILE__) . '/jdatetime.class.php';
-$date  = new jDateTime();
-echo $date->Date("l j F Y H:i", false, null, null, null, 1*24*3600);
-exit();
-$monthNames = Array("January", "February", "March", "April", "May", "June", "July", 
-"August", "September", "October", "November", "December");
-if (!isset($_REQUEST["month"])) $_REQUEST["month"] = date("n");
-if (!isset($_REQUEST["year"])) $_REQUEST["year"] = date("Y");
-?>
-<?php
+/*
+echo jDateTime::date('Y-m-d', false, false);
+echo "<br />";
+echo jDateTime::date('Y-m-d', false, false, false);
+echo "<br />";
+echo jDateTime::date("l j F Y H:i T", false, null, null, 'America/New_York');
+echo "<br />";
+echo jDateTime::Date("l j F Y H:i", false, false, null, null, 1*24*3600);
+*/
+$date = new jDateTime(false, true, 'Asia/Tehran');
+$monthNames = Array($date->getMonthNames(1), $date->getMonthNames(2), $date->getMonthNames(3),
+$date->getMonthNames(4), $date->getMonthNames(5), $date->getMonthNames(6), $date->getMonthNames(7),
+$date->getMonthNames(8), $date->getMonthNames(9), $date->getMonthNames(10), $date->getMonthNames(11),
+$date->getMonthNames(12));
+
+if (!isset($_REQUEST["month"])) $_REQUEST["month"] = $date->mDate("n");
+if (!isset($_REQUEST["year"])) $_REQUEST["year"] = $date->mDate("Y");
+
 $cMonth = $_REQUEST["month"];
 $cYear = $_REQUEST["year"];
  
@@ -27,13 +36,13 @@ if ($next_month == 13 ) {
     $next_year = $cYear + 1;
 }
 ?>
-<table width="200">
+<table width="200" style="direction: rtl;">
 <tr align="center">
 <td bgcolor="#999999" style="color:#FFFFFF">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 <tr>
-<td width="50%" align="left">  <a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $prev_month . "&year=" . $prev_year; ?>" style="color:#FFFFFF">Previous</a></td>
-<td width="50%" align="right"><a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $next_month . "&year=" . $next_year; ?>" style="color:#FFFFFF">Next</a>  </td>
+<td width="50%" align="right"><a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $prev_month . "&year=" . $prev_year; ?>" style="color:#FFFFFF">ماه قبل</a></td>
+<td width="50%" align="left"><a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $next_month . "&year=" . $next_year; ?>" style="color:#FFFFFF">ماه بعد</a>  </td>
 </tr>
 </table>
 </td>
@@ -45,24 +54,26 @@ if ($next_month == 13 ) {
 <td colspan="7" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $monthNames[$cMonth-1].' '.$cYear; ?></strong></td>
 </tr>
 <tr>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>S</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>M</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>T</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>W</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>T</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>F</strong></td>
-<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong>S</strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("sat"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("sun"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("mon"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("tue"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("wed"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("thu"); ?></strong></td>
+<td align="center" bgcolor="#999999" style="color:#FFFFFF"><strong><?php echo $date -> getDayNames("fri"); ?></strong></td>
 </tr>
-<?php 
-$timestamp = mktime(0,0,0,$cMonth,1,$cYear);
-$maxday = date("t",$timestamp);
+<?php
+date_default_timezone_set('Asia/Tehran');
+$a = $date->toGregorian($cYear, $cMonth, 1);
+$timestamp = mktime(0, 0, 0, $a[1], $a[2], $a[0]+1900);
 $thismonth = getdate ($timestamp);
 $startday = $thismonth['wday'];
+$maxday = date("t",$timestamp);
 for ($i=0; $i<($maxday+$startday); $i++) {
-    if(($i % 7) == 0 ) echo "<tr>n";
-    if($i < $startday) echo "<td></td>n";
-    else echo "<td align='center' valign='middle' height='20px'>". ($i - $startday + 1) . "</td>n";
-    if(($i % 7) == 6 ) echo "</tr>n";
+    if(($i % 7) == 0 ) echo "<tr>";
+    if($i < $startday) echo "<td></td>";
+    else echo "<td align='center' valign='middle' height='20px'>". ($i - $startday + 1) . "</td>";
+    if(($i % 7) == 6 ) echo "</tr>";
 }
 ?>
 </table>
