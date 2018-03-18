@@ -320,6 +320,28 @@ class jDateTime
     {
         return self::date($format, false, null, null, null, $addseconds);
     }
+     /**
+     * jDateTime::IsLeapYear
+     *
+     * Returns true if year is leap
+     * Source: http://barnamenevis.org/showthread.php?210913-%D9%86%D8%AD%D9%88%D9%87-%D8%AA%D8%B4%D8%AE%DB%8C%D8%B5-%D8%B3%D8%A7%D9%84-%DA%A9%D8%A8%DB%8C%D8%B3%D9%87-%D9%87%D8%AC%D8%B1%DB%8C-%D8%B4%D9%85%D8%B3%DB%8C
+     *
+     *
+     * @author http://barnamenevis.org/member.php?109710-FastCode
+     * @param $format string Acceps format string based on: php.net/date
+     * @param $addseconds int Adds seconds to current datetime
+     * @return string Formatted input
+     */
+    function IsLeapYear($y)
+    {
+        $matches = [ 1, 5, 9, 13, 17, 22, 26, 30 ];
+        $modulus = $y - (($y / 33) * 33);
+        $K = false;
+        for ($n = 0; $n != 8; $n++)
+            if ($matches[$n] == $modulus)
+            $K = true;
+        return $K;
+    }
     
     /**
      * jDateTime::Strftime
@@ -328,7 +350,7 @@ class jDateTime
      * built in strftime() function.
      * e.g:
      * $obj->strftime("%x %H", time());
-     * $obj->strftime("%H", time(), false, false, 'America/New_York');
+     * $obj->strftime("%H", time(), false, false, 'Ame     * @author Mohammad R. Tayyebirica/New_York');
      *
      * @author Omid Pilevar
      * @param $format string Acceps format string based on: php.net/date
@@ -608,7 +630,6 @@ class jDateTime
     {
 
         $g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-        $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
 
         $gy = $g_y-1600;
         $gm = $g_m-1;
@@ -636,8 +657,8 @@ class jDateTime
             $j_day_no = ($j_day_no-1)%365;
         }
 
-        for ($i = 0; $i < 11 && $j_day_no >= $j_days_in_month[$i]; ++$i)
-            $j_day_no -= $j_days_in_month[$i];
+        for ($i = 0; $i < 11 && $j_day_no >= self::$j_days_in_month[$i]; ++$i)
+            $j_day_no -= self::$j_days_in_month[$i];
         $jm = $i+1;
         $jd = $j_day_no+1;
 
@@ -650,11 +671,12 @@ class jDateTime
      * Copyright (C) 2000  Roozbeh Pournader and Mohammad Toossi
      *
      */
+    static public $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
     public static function toGregorian($j_y, $j_m, $j_d)
     {
 
         $g_days_in_month = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-        $j_days_in_month = array(31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29);
+        
 
         $jy = $j_y-979;
         $jm = $j_m-1;
@@ -662,7 +684,7 @@ class jDateTime
 
         $j_day_no = 365*$jy + self::div($jy, 33)*8 + self::div($jy%33+3, 4);
         for ($i=0; $i < $jm; ++$i)
-            $j_day_no += $j_days_in_month[$i];
+            $j_day_no += self::$j_days_in_month[$i];
 
         $j_day_no += $jd;
 
