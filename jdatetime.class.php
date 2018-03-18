@@ -126,8 +126,13 @@ class jDateTime
     {
         //Timestamp + Timezone
         $stamp    = ($stamp !== false) ? $stamp : time();
-        $stamp += $addseconds;
-        $timezone = ($timezone != null) ? $timezone : ((self::$timezone != null) ? self::$timezone : date_default_timezone_get());
+        $stamp   += $addseconds;
+        if ( (self::$jalali === false && $jalali === null) || $jalali === false ) {
+            $timezone = ($timezone != null) ? $timezone : ((self::$timezone != null) ? self::$timezone : date_default_timezone_get());
+        }
+        else {
+            $timezone = 'Asia/Tehran';
+        }
         $obj      = new DateTime('@' . $stamp, new DateTimeZone($timezone));
         $obj->setTimezone(new DateTimeZone($timezone));
 
