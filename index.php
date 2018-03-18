@@ -2,7 +2,7 @@
 <?php
 require_once dirname(__FILE__) . '/jdatetime.class.php';
 $date  = new jDateTime();
-echo $date->date("l j F Y H:i"); // Outputs: پنجشنبه ۱۵ اردیبهشت ۱۳۹۰ ۰۰:۰۰
+echo $date->Date("l j F Y H:i", false, null, null, null, 1*24*3600);
 exit();
 $monthNames = Array("January", "February", "March", "April", "May", "June", "July", 
 "August", "September", "October", "November", "December");

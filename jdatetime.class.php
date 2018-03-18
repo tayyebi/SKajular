@@ -122,10 +122,11 @@ class jDateTime
      * @param $timezone string (Optional) forces a different timezone. pass null to use system default
      * @return string Formatted input
      */
-    public static function date($format, $stamp = false, $convert = null, $jalali = null, $timezone = null)
+    public static function date($format, $stamp = false, $convert = null, $jalali = null, $timezone = null, $addseconds = 0)
     {
         //Timestamp + Timezone
         $stamp    = ($stamp !== false) ? $stamp : time();
+        $stamp += $addseconds;
         $timezone = ($timezone != null) ? $timezone : ((self::$timezone != null) ? self::$timezone : date_default_timezone_get());
         $obj      = new DateTime('@' . $stamp, new DateTimeZone($timezone));
         $obj->setTimezone(new DateTimeZone($timezone));
