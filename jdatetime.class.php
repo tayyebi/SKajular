@@ -335,7 +335,7 @@ class jDateTime
     function IsLeapYear($y)
     {
         $matches = [ 1, 5, 9, 13, 17, 22, 26, 30 ];
-        $modulus = $y - (($y / 33) * 33);
+        $modulus = $y - (int)((int)($y / 33) * 33);
         $K = false;
         for ($n = 0; $n != 8; $n++)
             if ($matches[$n] == $modulus)

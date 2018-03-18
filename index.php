@@ -68,7 +68,9 @@ $a = $date->toGregorian($cYear, $cMonth, 1);
 $timestamp = mktime(0, 0, 0, $a[1], $a[2], $a[0]+1900);
 $thismonth = getdate ($timestamp);
 $startday = $thismonth['wday'];
-$maxday = date("t",$timestamp);
+$maxday = (($cMonth > 6) ? 30 : 31);
+if (!$date->IsLeapYear($cYear))
+    $maxday = 29;
 for ($i=0; $i<($maxday+$startday); $i++) {
     if(($i % 7) == 0 ) echo "<tr>";
     if($i < $startday) echo "<td></td>";
