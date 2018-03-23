@@ -350,7 +350,7 @@ class jDateTime
      * built in strftime() function.
      * e.g:
      * $obj->strftime("%x %H", time());
-     * $obj->strftime("%H", time(), false, false, 'Ame     * @author Mohammad R. Tayyebirica/New_York');
+     * $obj->strftime("%H", time(), false, false, 'America/New_York');
      *
      * @author Omid Pilevar
      * @param $format string Acceps format string based on: php.net/date

@@ -111,12 +111,12 @@ $timestamp = mktime(0, 0, 0, $a[1], $a[2], $a[0] + 1900);
 $thismonth = getdate($timestamp);
 $startday  = $thismonth['wday'];
 $maxday    = (($cMonth > 6) ? 30 : 31);
-if (!$date->IsLeapYear($cYear))
+if (!$date->IsLeapYear($cYear) && $cMonth == 12)
     $maxday = 29;
-for ($i = 0; $i < ($maxday + $startday); $i++) {
+for ($i = 0; $i < (((int)(($maxday + $startday) / 7) + 1) * 7); $i++) {
     if (($i % 7) == 0)
         echo "<tr>";
-    if ($i < $startday)
+    if ($i < $startday || $i >= $startday + $maxday)
         echo "<td></td>";
     else
         echo "<td>" . ($i - $startday + 1) . "</td>";
