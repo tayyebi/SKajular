@@ -102,3 +102,19 @@ DEFAULT CHARACTER SET = latin1;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+/**********************************
+PATCH 1
+***********************************/
+
+
+ALTER TABLE `skajular`.`Session` 
+ADD COLUMN `EventId` INT NULL AFTER `To`,
+ADD INDEX `fk_Session_1_idx` (`EventId` ASC);
+ALTER TABLE `skajular`.`Session` 
+ADD CONSTRAINT `fk_Session_1`
+  FOREIGN KEY (`EventId`)
+  REFERENCES `skajular`.`Events` (`Id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
