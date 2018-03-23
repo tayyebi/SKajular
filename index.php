@@ -119,7 +119,7 @@ for ($i = 0; $i < (((int)(($maxday + $startday) / 7) + 1) * 7); $i++) {
     if ($i < $startday || $i >= $startday + $maxday)
         echo "<td></td>";
     else
-        echo "<td>" . ($i - $startday + 1) . "</td>";
+        echo '<td><a href="#">' . ($i - $startday + 1) . '</a></td>';
     if (($i % 7) == 6)
         echo "</tr>";
 }
