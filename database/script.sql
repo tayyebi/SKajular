@@ -1,66 +1,3 @@
-$sqlite3
-
-/**************************************************************************/
-
-$.databases
-$.quit
-$.schema skajular
-$.tables
-
-/**************************************************************************/
-
-CREATE TABLE Event (
- Id INTEGER PRIMARY KEY AUTOINCREMENT,
- Title TEXT NOT NULL,
- Type TEXT NOT NULL
-);
-
-INSERT INTO Event (Title, Type) VALUES ('test', 'Course');
-INSERT INTO Event (Title, Type) VALUES ('test2', 'Off');
-INSERT INTO Event (Title, Type) VALUES ('test', 'Warning');
-INSERT INTO Event (Title, Type) VALUES ('test', 'Festival');
-
-SELECT * FROM Event;
-
-/**************************************************************************/
-
-CREATE TABLE Users (
- Id INTEGER PRIMARY KEY AUTOINCREMENT,
- Username TEXT NOT NULL,
- [Password] TEXT NOT NULL,
- [Image] BLOB NULL
-);
-
-insert into users (username, password) values ('admin', 'admin');
-
-/**************************************************************************/
-
-
-/*
-
-
-*
-*
-*
-*
-*
-
-
-
-MYSQL SERVER 5
-
-
-
-*
-*
-*
-*
-*
-
-
-*/
-
-
 -- MySQL Workbench Forward Engineering
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
@@ -108,7 +45,6 @@ DEFAULT CHARACTER SET = latin1;
 -- Table `skajular`.`Users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `skajular`.`Users` (
-
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
   `Username` VARCHAR(45) NOT NULL,
   `Password` VARCHAR(45) NOT NULL,
@@ -123,55 +59,43 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `skajular`.`Session` (
   `Id` BIGINT(11) NOT NULL AUTO_INCREMENT,
-  `FirstPersonId` INT(11) NULL DEFAULT NULL,
   `Date` INT(11) NULL DEFAULT NULL,
   `Note` VARCHAR(80) NULL DEFAULT NULL,
   `From` TIME(6) NULL DEFAULT NULL,
   `To` TIME(6) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_Session_1_idx` (`FirstPersonId` ASC),
-  CONSTRAINT `fk_Session_1`
-    FOREIGN KEY (`FirstPersonId`)
-    REFERENCES `skajular`.`Users` (`Id`)
+  INDEX `fk_Session_2_idx` (`Date` ASC),
+  CONSTRAINT `fk_Session_2`
+    FOREIGN KEY (`Date`)
+    REFERENCES `skajular`.`Calendar` (`DateKey`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$sqlite3
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
-/**************************************************************************/
 
-$.databases
-$.quit
-$.schema skajular
-$.tables
-
-/**************************************************************************/
-
-CREATE TABLE Event (
- Id INTEGER PRIMARY KEY AUTOINCREMENT,
- Title TEXT NOT NULL,
- Type TEXT NOT NULL
-);
-
-INSERT INTO Event (Title, Type) VALUES ('test', 'Course');
-INSERT INTO Event (Title, Type) VALUES ('test2', 'Off');
-INSERT INTO Event (Title, Type) VALUES ('test', 'Warning');
-INSERT INTO Event (Title, Type) VALUES ('test', 'Festival');
-
-SELECT * FROM Event;
-
-/**************************************************************************/
-
-CREATE TABLE Users (
- Id INTEGER PRIMARY KEY AUTOINCREMENT,
- Username TEXT NOT NULL,
- [Password] TEXT NOT NULL,
- [Image] BLOB NULL
-);
-
-insert into users (username, password) values ('admin', 'admin');
-
-/**************************************************************************/
-
+-- -----------------------------------------------------
+-- Table `skajular`.`Participate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `skajular`.`Participate` (
+  `Id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `UserId` INT(11) NULL DEFAULT NULL,
+  `Role` VARCHAR(45) NULL DEFAULT NULL,
+  `SessionId` BIGINT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  INDEX `fk_Participate_1_idx` (`UserId` ASC),
+  INDEX `fk_Participate_2_idx` (`SessionId` ASC),
+  CONSTRAINT `fk_Participate_1`
+    FOREIGN KEY (`UserId`)
+    REFERENCES `skajular`.`Users` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Participate_2`
+    FOREIGN KEY (`SessionId`)
+    REFERENCES `skajular`.`Session` (`Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 
