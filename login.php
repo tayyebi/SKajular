@@ -7,11 +7,11 @@ if (isset($_POST['login']))
   $result = mysqli_query(Init::Db(), "SELECT Id FROM `Users` WHERE `Username`='" . $_POST['username'] . "' AND `Password`='" . $_POST['password'] . "'");
   if ($result->num_rows == 1) {
     $_SESSION['USERID'] = ($result->fetch_assoc())['Id'];
-    header('Location: index.php');
+    exit(header('Location: index.php'));
   }
   else{
     $_SESSION['message'] = "نام کاربری یا کلمه عبور صحیح نیست";
-    header('Location: login.php');
+    exit(header('Location: login.php'));
   }
 }
 ?>
@@ -40,6 +40,7 @@ if (isset($_POST['login']))
   {
     echo '<span class="error">' . $_SESSION['message'] . '</span>';
     unset($_SESSION['message']);
+    // $_SESSION['message'] = null;
   }
   else
     echo "<span>Pen <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>";
@@ -99,5 +100,4 @@ if (isset($_POST['login']))
   <script  src="js/login.js"></script>
 
 </body>
-
 </html>
