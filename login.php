@@ -1,3 +1,33 @@
+<?php
+if (isset($_POST['login']))
+{
+
+
+  $dir = 'sqlite:/skajular.db';
+  $dbh  = new PDO($dir) or die("cannot open the database");
+  $_POST['username'];
+  $query =  "SELECT * FROM Users WHERE 1";
+  foreach ($dbh->query($query) as $row)
+  {
+      echo $row[0];
+  }
+
+  
+  /*
+  $db = new SQLite3('skajular.db');
+
+  $results = $db->query('SELECT bar FROM foo');
+  while ($row = $results->fetchArray()) {
+      var_dump($row);
+  }
+  */
+  
+  exit;
+}
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en" >
 
@@ -24,19 +54,19 @@
   <div class="card"></div>
   <div class="card">
     <h1 class="title">لاگین</h1>
-    <form>
+    <form method="post" action="login.php">
       <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
+        <input name="username" type="#{type}" id="#{label}" required="required"/>
         <label for="#{label}">نام‌کاربری</label>
         <div class="bar"></div>
       </div>
       <div class="input-container">
-        <input type="#{type}" id="#{label}" required="required"/>
+        <input name="password" type="#{type}" id="#{label}" required="required"/>
         <label for="#{label}">گذر‌واژه</label>
         <div class="bar"></div>
       </div>
       <div class="button-container">
-        <button><span>ورود</span></button>
+        <button name="login"><span>ورود</span></button>
       </div>
       <div class="footer"><a href="#">کلمه‌ی عبور خود را فراموش کرده‌اید؟</a></div>
     </form>
@@ -63,13 +93,13 @@
         <div class="bar"></div>
       </div>
       <div class="button-container">
-        <button><span>بعدی</span></button>
+        <button name="register"><span>بعدی</span></button>
       </div>
     </form>
   </div>
 </div>
   <a id="home" href="/" title="برو به خانه!"><i class="fa fa-link"></i></a>
-<!-- Gordarg <a id="codepen" href="http://gordarg.com/" title="Follow me!"><i class="fa fa-codepen"></i></a> -->
+  <!-- Gordarg <a id="codepen" href="http://gordarg.com/" title="Follow me!"><i class="fa fa-codepen"></i></a> -->
   <script src='js/jquery.min.js'></script>
   <script  src="js/login.js"></script>
 

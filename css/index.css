@@ -30,6 +30,13 @@
     font-family: Vazir ;
   }
   
+body{
+    direction: rtl;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
 
 table td {
     font-size: 1em;
@@ -41,7 +48,7 @@ table td {
 table {
     text-align: right;
     overflow: hidden;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     display: table;
     padding: 0 0 8em 0;
@@ -68,7 +75,7 @@ table th {
     background-color: #1F2739;
 }
 
-table td:first-child { color: #FB667A; }
+table td:nth-child(7) { color: #FB667A; }
 
 table tr:hover {
  background-color: #464A52;
