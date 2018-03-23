@@ -1,32 +1,19 @@
 <?php
+require_once 'init.php';
+if (isset($_GET['Bye']) && $_GET['bye'] == "✓")
+  session_destroy();
 if (isset($_POST['login']))
 {
-
-
-  $dir = 'sqlite:/skajular.db';
-  $dbh  = new PDO($dir) or die("cannot open the database");
-  $_POST['username'];
-  $query =  "SELECT * FROM Users WHERE 1";
-  foreach ($dbh->query($query) as $row)
-  {
-      echo $row[0];
+  $result = mysqli_query(Init::Db(), "SELECT Id FROM `Users` WHERE `Username`='" . $_POST['username'] . "' AND `Password`='" . $_POST['password'] . "'");
+  if ($result->num_rows == 1) {
+    $_SESSION['USERID'] = ($result->fetch_assoc())['Id'];
+    header('Location: index.php');
   }
-
-  
-  /*
-  $db = new SQLite3('skajular.db');
-
-  $results = $db->query('SELECT bar FROM foo');
-  while ($row = $results->fetchArray()) {
-      var_dump($row);
+  else{
+    $_SESSION['message'] = "نام کاربری یا کلمه عبور صحیح نیست";
+    header('Location: login.php');
   }
-  */
-  
-  exit;
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -48,7 +35,15 @@ if (isset($_POST['login']))
 
 <div class="pen-title">
   <h1>اسکژولار | ورود به سیستم</h1>
-  <span>Pen <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>
+  <?php
+  if (isset($_SESSION['message']))
+  {
+    echo '<span class="error">' . $_SESSION['message'] . '</span>';
+    unset($_SESSION['message']);
+  }
+  else
+    echo "<span>Pen <i class='fa fa-code'></i> by <a href='http://andytran.me'>Andy Tran</a></span>";
+  ?>
 </div>
 <div class="container">
   <div class="card"></div>

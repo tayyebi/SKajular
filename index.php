@@ -17,7 +17,10 @@
 <body>
 
 <?php
+require_once 'init.php';
 require_once dirname(__FILE__) . '/jdatetime.class.php';
+if (!isset($_SESSION['USERID']))
+    header('Location: login.php');
 /*
 echo jDateTime::date('Y-m-d', false, false);
 echo "<br />";
@@ -65,6 +68,7 @@ if ($next_month == 13) {
     $next_year  = $cYear + 1;
 }
 ?>
+<a href="login.php?bye=✓">خروج</a>
 <a href="<?php
 echo $_SERVER["PHP_SELF"] . "?month=" . $prev_month . "&year=" . $prev_year;
 ?>">ماه قبل</a></td>
