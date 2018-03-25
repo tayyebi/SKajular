@@ -123,7 +123,7 @@ for ($i = 0; $i < (((int)(($maxday + $startday) / 7)  + 1) * 7); $i++) {
     if ($i < $startday || $i >= $startday + $maxday)
         echo "<td></td>";
     else
-        echo '<td><a href="schedule.php?date=' . $cYear . '-' . $cMonth . '-' . ($i - $startday + 1) . '">' . ($i - $startday + 1) . '</a></td>';
+        echo '<td><a href="schedule.php?date=' . $cYear . '-' . sprintf('%02d',$cMonth) . '-' . sprintf('%02d',($i - $startday + 1)) . '">' . ($i - $startday + 1) . '</a></td>';
     if (($i % 7) == 6)
         echo "</tr>";
 }
