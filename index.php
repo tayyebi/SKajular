@@ -18,7 +18,6 @@
 
 <?php
 require_once 'init.php';
-require_once dirname(__FILE__) . '/jdatetime.class.php';
 if (!isset($_SESSION['USERID']))
     header('Location: login.php');
 /*
@@ -124,7 +123,7 @@ for ($i = 0; $i < (((int)(($maxday + $startday) / 7)  + 1) * 7); $i++) {
     if ($i < $startday || $i >= $startday + $maxday)
         echo "<td></td>";
     else
-        echo '<td><a href="#">' . ($i - $startday + 1) . '</a></td>';
+        echo '<td><a href="schedule.php?date=' . $cYear . '-' . $cMonth . '-' . ($i - $startday + 1) . '">' . ($i - $startday + 1) . '</a></td>';
     if (($i % 7) == 6)
         echo "</tr>";
 }

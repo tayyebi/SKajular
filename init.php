@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once dirname(__FILE__) . '/jdatetime.class.php';
 class Init{
 
     public static function Db(){
