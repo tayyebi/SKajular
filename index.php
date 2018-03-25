@@ -68,18 +68,19 @@ if ($next_month == 13) {
     $next_year  = $cYear + 1;
 }
 ?>
+<header>
 <a href="login.php?bye=✓">خروج</a>
-<a href="<?php
-echo $_SERVER["PHP_SELF"] . "?month=" . $prev_month . "&year=" . $prev_year;
-?>">ماه قبل</a></td>
-<td><a href="<?php
-echo $_SERVER["PHP_SELF"] . "?month=" . $next_month . "&year=" . $next_year;
-?>">ماه بعد</a>
+</header>
+
 <table cellpadding="2" cellspacing="2">
 <tr align="center">
-<td colspan="7"><strong><?php
+<td colspan="7"><strong><a href="<?php
+echo $_SERVER["PHP_SELF"] . "?month=" . $prev_month . "&year=" . $prev_year;
+?>">ماه قبل</a><?php
 echo $monthNames[$cMonth - 1] . ' ' . $cYear;
-?></strong></td>
+?></strong><a href="<?php
+echo $_SERVER["PHP_SELF"] . "?month=" . $next_month . "&year=" . $next_year;
+?>">ماه بعد</a></td>
 </tr>
 <tr>
 <td><strong><?php
@@ -113,7 +114,11 @@ $startday  = $thismonth['wday'];
 $maxday    = (($cMonth > 6) ? 30 : 31);
 if (!$date->IsLeapYear($cYear) && $cMonth == 12)
     $maxday = 29;
-for ($i = 0; $i < (((int)(($maxday + $startday) / 7) + 1) * 7); $i++) {
+for ($i = 0; $i < (((int)(($maxday + $startday) / 7)  + 1) * 7); $i++) {
+
+    if ((($i - $startday + 1) > $maxday) && ($i % 7) == 0)
+        break;
+    
     if (($i % 7) == 0)
         echo "<tr>";
     if ($i < $startday || $i >= $startday + $maxday)

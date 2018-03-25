@@ -57,7 +57,7 @@ if (isset($_POST['login']))
         <div class="bar"></div>
       </div>
       <div class="input-container">
-        <input name="password" type="#{type}" id="#{label}" required="required"/>
+        <input name="password" type="password" id="#{label}" required="required"/>
         <label for="#{label}">گذر‌واژه</label>
         <div class="bar"></div>
       </div>
