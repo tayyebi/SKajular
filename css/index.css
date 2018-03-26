@@ -90,7 +90,10 @@ table a{
     height: 100%;
     box-sizing: border-box;
 }
-table a:hover {
+table a:hover,
+table a:focus,
+.today
+{
     background-color: #FFF842;
     color: #403E10;
     font-weight: bold;
