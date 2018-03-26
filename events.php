@@ -55,19 +55,19 @@ if (isset($_POST['event']))
 
 <head>
   <meta charset="UTF-8">
-  <title>اسکژولار | روز <?php echo $date?></title>
+  <title>اسکژولار | رویداد <?php echo $date?></title>
 
   <link rel="stylesheet" href="css/events.css">
 </head>
 <body>
-    <form id="form1" name="form1" method="post" action="events.php">
+    <form method="post" action="events.php">
     <input type="hidden" name="Id" id="Id" />
-    <br class="clear" /> 
-    <label for="Type">Type</label><input type="text" name="Type" id="Type" />
-    <br class="clear" /> 
-    <label for="Title">Title</label><input type="text" name="Title" id="Title" />
-    <br class="clear" />
+    <label for="Type">Type</label>
+    <input type="text" name="Type" id="Type" />
+    <label for="Title">Title</label>
+    <input type="text" name="Title" id="Title" />
     <input type="submit" name="event" value="post" />
     </form>
 </body>
+<script  src="js/events.js"></script>
 </html>
