@@ -25,26 +25,28 @@ if (isset($_POST['session']))
 <div class="timetable">
 
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-  <input type="text" name="note" placeholder="توضیحات" />
-  <input type="text" placeholder="از ساعت" name="from" data-mask="__:__" />
-  <input type="text" placeholder="تا ساعت" name="to" data-mask="__:__" />
-  <input type="hidden" name="date" value="<?php echo $datekey ?>" />
-  <select name="eventid">
-  <?php
-  $eventtypes = mysqli_query(Init::Db(), "SELECT `Type` FROM `Events` GROUP BY `Type`;");
-  while($eventtype = $eventtypes->fetch_assoc())
-  {
-    echo '<optgroup label="' . $eventtype["Type"] . '">';
-    $events = mysqli_query(Init::Db(), "SELECT * FROM `Events` WHERE `Type`='" . $eventtype["Type"] . "';");
-    while($event = $events->fetch_assoc())
+    <input type="text" name="note" placeholder="توضیحات" />
+    <input type="text" placeholder="از ساعت" name="from" data-mask="__:__" />
+    <input type="text" placeholder="تا ساعت" name="to" data-mask="__:__" />
+    <input type="hidden" name="date" value="<?php echo $datekey ?>" />
+    <a href="events.php">رویداد‌ها</a>
+    <select name="eventid">
+    <?php
+    $eventtypes = mysqli_query(Init::Db(), "SELECT `Type` FROM `Events` GROUP BY `Type`;");
+    while($eventtype = $eventtypes->fetch_assoc())
     {
-      echo '<option value="' . $event["Id"] . '">' . $event["Title"] . '</option>';
+        echo '<optgroup label="' . $eventtype["Type"] . '">';
+        $events = mysqli_query(Init::Db(), "SELECT * FROM `Events` WHERE `Type`='" . $eventtype["Type"] . "';");
+        while($event = $events->fetch_assoc())
+        {
+        echo '<option value="' . $event["Id"] . '">' . $event["Title"] . '</option>';
+        }
+        echo '</optgroup>';
     }
-    echo '</optgroup>';
-  }
-  ?>
-  </select>
-  <input type="submit" name="session" value="تعریف جلسه" />
+    ?>
+    </select>
+    <input type="submit" name="session" value="تعریف جلسه" />
+    <a href="index.php" class="btn">بازگشت</a>
 </form>
 <div class="sessions">
 <?php
