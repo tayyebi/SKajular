@@ -1,13 +1,104 @@
-body {
-	font-family: 'Lato', georgia;
+@font-face {
+  font-family: Vazir;
+  src: url('../fonts/Vazir/Vazir.eot');
+  src: url('../fonts/Vazir/Vazir.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Vazir/Vazir.woff') format('woff'),
+       url('../fonts/Vazir/Vazir.ttf') format('truetype');
+  font-weight: normal;
+}
+      
+@font-face {
+  font-family: Vazir;
+  src: url('../fonts/Vazir/Vazir-Bold.eot');
+  src: url('../fonts/Vazir/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Vazir/Vazir-Bold.woff') format('woff'),
+       url('../fonts/Vazir/Vazir-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+@font-face {
+  font-family: Vazir;
+  src: url('fonts/Vazir/Vazir.eot');
+  src: url('fonts/Vazir/Vazir.eot?#iefix') format('embedded-opentype'),
+       url('fonts/Vazir/Vazir.woff') format('woff'),
+       url('fonts/Vazir/Vazir.ttf') format('truetype');
+  font-weight: normal;
+}
+      
+@font-face {
+  font-family: Vazir;
+  src: url('fonts/Vazir/Vazir-Bold.eot');
+  src: url('fonts/Vazir/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+       url('fonts/Vazir/Vazir-Bold.woff') format('woff'),
+       url('fonts/Vazir/Vazir-Bold.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Vazir;
+  src: url('../fonts/Vazir/Vazir-Light.eot');
+  src: url('../fonts/Vazir/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/Vazir/Vazir-Light.woff') format('woff'),
+       url('../fonts/Vazir/Vazir-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Vazir;
+  src: url('fonts/Vazir/Vazir-Light.eot');
+  src: url('fonts/Vazir/Vazir-Light.eot?#iefix') format('embedded-opentype'),
+       url('fonts/Vazir/Vazir-Light.woff') format('woff'),
+       url('fonts/Vazir/Vazir-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+
+*{
+  font-family: Vazir;
+}
+
+body , table {
+	font-family: Vazir;
 	font-size: 25px;
 	color: rgba(255, 255, 255, 1);
 	background-color: rgba(236, 181, 62, 0.95);
 	text-align: center;
 	font-weight: 300;
+	direction: rtl;
 	-webkit-font-smoothing: antialiased;
   }
   
+	a{
+		text-decoration: none;
+		color: inherit;
+		margin: 1em;
+	}
+	
+	table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even){background-color: #f2f2f2;}
+
+table tr:hover {
+	background-color: rgba(59, 59, 59, 0.2);
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+
+
   #contact-form {
 	max-width: 90%;
 	margin: 0 auto;
@@ -18,15 +109,18 @@ body {
 	cursor: pointer;
   }
   
+	select,
+	a,
   textarea,
   input {
+	display: block;
+	margin: 0 auto 0 auto;
 	border: none;
 	outline: none;
 	border-radius: 0;
 	text-align: center;
 	background: none;
 	font-weight: 700;
-	font-family: 'Lato', georgia;
 	font-size: 25px;
 	color: rgba(255, 255, 255, 1);
 	max-width: 90%;
@@ -34,7 +128,14 @@ body {
 	border: 2px dashed rgba(255, 255, 255, 0);
 	box-sizing: border-box;
 	cursor: text;
-  }
+	}
+	a{
+		cursor: pointer;
+	}
+	
+	option{
+		background-color: rgb(236, 181, 62);
+	}
   
   textarea {
 	text-align: left;
@@ -59,7 +160,9 @@ body {
 	border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   }
   
-  input {
+	input,
+	select,
+	a {
 	border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
   }
   
@@ -84,7 +187,6 @@ body {
   ::-webkit-input-placeholder {
 	text-align: center;
 	color: rgba(255, 255, 255, 0.4);
-	font-style: italic;
 	font-weight: 400;
   }
   
@@ -93,7 +195,6 @@ body {
 	
 	text-align: center;
 	color: rgba(255, 255, 255, 0.4);
-	font-style: italic;
 	font-weight: 400;
   }
   
@@ -102,14 +203,12 @@ body {
 	
 	text-align: center;
 	color: rgba(255, 255, 255, 0.4);
-	font-style: italic;
 	font-weight: 400;
   }
   
   :-ms-input-placeholder {
 	text-align: center;
 	color: rgba(255, 255, 255, 0.4);
-	font-style: italic;
 	font-weight: 400;
   }
   
