@@ -114,7 +114,6 @@ $maxday    = (($cMonth > 6) ? 30 : 31);
 if (!$date->IsLeapYear($cYear) && $cMonth == 12)
     $maxday = 29;
 for ($i = 0; $i < (((int)(($maxday + $startday) / 7)  + 1) * 7); $i++) {
-
     if ((($i - $startday + 1) > $maxday) && ($i % 7) == 0)
         break;
     
@@ -123,7 +122,11 @@ for ($i = 0; $i < (((int)(($maxday + $startday) / 7)  + 1) * 7); $i++) {
     if ($i < $startday || $i >= $startday + $maxday)
         echo "<td></td>";
     else
-        echo '<td><a href="schedule.php?date=' . $cYear . '-' . sprintf('%02d',$cMonth) . '-' . sprintf('%02d',($i - $startday + 1)) . '">' . ($i - $startday + 1) . '</a></td>';
+    {
+        echo '<td><a';
+        echo (($date->mDate("d")) == ($i - $startday + 1)) ? ' class="today"' : '';
+        echo ' href="schedule.php?date=' . $cYear . '-' . sprintf('%02d',$cMonth) . '-' . sprintf('%02d',($i - $startday + 1)) . '">' . ($i - $startday + 1) . '</a></td>';
+    }
     if (($i % 7) == 6)
         echo "</tr>";
 }
