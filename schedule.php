@@ -1,15 +1,31 @@
 <?php
 require_once 'init.php';
-$date = jDateTime::Date("Y-m-d", false, false, null, null, 0);
+$ini = new Init();
+$date = $eventid = null;
 if (isset($_GET['date']))
     $date = $_GET['date'];
+else if (isset($_GET['event']))
+    $eventid = $_GET['event'];
+else
+    $date = jDateTime::Date("Y-m-d", false, false, null, null, 0);
+
 $datekey = preg_replace('/[^0-9+]/', '', $date);
 $gregoriandate = jDateTime::toGregorian(2018, 05, 25); // TODO //
-mysqli_query(Init::Db(), "INSERT INTO `Calendar` (`DateKey`, `Jalali`, `Gregorian`) SELECT '" . $datekey . "', '" . $datekey . "', '2018-05-25' WHERE NOT EXISTS (SELECT `DateKey` FROM `Calendar` WHERE DateKey='" . $datekey . "' LIMIT 1);");
-if (isset($_POST['session']))
+
+if (isset($_POST['session']) && !isset($_POST['edit']))
 {
-  mysqli_query(Init::Db(), "INSERT INTO `Session` (`Date`, `From`, `To`, `Note`) VALUES ('" . $_POST['date'] . "', '" . $_POST['from'] . "', '" . $_POST['to'] . "', '" . $_POST['note'] . "')");
+    mysqli_query($ini->Db(), "INSERT INTO `Calendar` (`DateKey`, `Jalali`, `Gregorian`) SELECT '" . $datekey . "', '" . $datekey . "', '2018-05-25' WHERE NOT EXISTS (SELECT `DateKey` FROM `Calendar` WHERE DateKey='" . $datekey . "' LIMIT 1);");
+    mysqli_query($ini->Db(), "INSERT INTO `Session` (`Date`, `From`, `To`, `Note`) VALUES ('" . preg_replace('/[^0-9+]/', '', $_POST['date']) . "', '" . $_POST['from'] . "', '" . $_POST['to'] . "', '" . $_POST['note'] . "')");
 }
+if (isset($_POST['session']) && isset($_POST['edit']))
+{
+
+}
+else if (isset($_GET['del']))
+{
+    mysqli_query($ini->Db(), "DELETE FROM `Session` WHERE `Id`=" . $_GET['del']);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en" >
@@ -28,15 +44,15 @@ if (isset($_POST['session']))
     <input type="text" name="note" placeholder="توضیحات" />
     <input type="text" placeholder="از ساعت" name="from" data-mask="__:__" />
     <input type="text" placeholder="تا ساعت" name="to" data-mask="__:__" />
-    <input type="hidden" name="date" value="<?php echo $datekey ?>" />
+    <input type="text" name="date" value="<?php echo $date ?>" data-mask="____/__/__" />
     <a href="events.php">رویداد‌ها</a>
     <select name="eventid">
     <?php
-    $eventtypes = mysqli_query(Init::Db(), "SELECT `Type` FROM `Events` GROUP BY `Type`;");
+    $eventtypes = mysqli_query($ini->Db(), "SELECT `Type` FROM `Events` GROUP BY `Type`;");
     while($eventtype = $eventtypes->fetch_assoc())
     {
         echo '<optgroup label="' . $eventtype["Type"] . '">';
-        $events = mysqli_query(Init::Db(), "SELECT * FROM `Events` WHERE `Type`='" . $eventtype["Type"] . "';");
+        $events = mysqli_query($ini->Db(), "SELECT * FROM `Events` WHERE `Type`='" . $eventtype["Type"] . "';");
         while($event = $events->fetch_assoc())
         {
         echo '<option value="' . $event["Id"] . '">' . $event["Title"] . '</option>';
@@ -50,7 +66,7 @@ if (isset($_POST['session']))
 </form>
 <div class="sessions">
 <?php
-$sessions = mysqli_query(Init::Db(), "SELECT * FROM `Session` WHERE `Date`=" . $datekey . " ORDER BY `From` ASC;");
+$sessions = mysqli_query($ini->Db(), "SELECT * FROM `Session` WHERE `Date`=" . $datekey . " ORDER BY `From` ASC;");
 while($session = $sessions->fetch_assoc())
 {
     echo '<div class="session">';

@@ -83,7 +83,9 @@ table td, table th {
     padding: 8px;
 }
 
-table tr:nth-child(even){background-color: #f2f2f2;}
+table tr:nth-child(even){
+  background-color: rgba(255, 255, 255, 0.2);
+}
 
 table tr:hover {
 	background-color: rgba(59, 59, 59, 0.2);
@@ -93,7 +95,7 @@ table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(221, 221, 221, 0.5);
     color: white;
 }
 
@@ -231,9 +233,23 @@ table th {
 	outline: none;
 	margin: 2vmax;
   }
+
   
-  button:hover small {
+  button:hover small{
 	opacity: 1;
+  }
+
+  input[type="submit"]
+  {
+    opacity: 1;
+    margin-top: 1em;
+    cursor: pointer;
+    border: 2px dashed rgba(255, 255, 255, 1);
+  }
+  input[type="submit"]:hover,
+  input[type="submit"]:focus
+  {
+    background-color: rgba(255, 255, 255, 0.4);
   }
   
   small {

@@ -30,7 +30,7 @@ function tableBody( $result ) {
         echo '<td>' . $y . '</td>';
     }
     echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?edit=' . $x['Id'] . '">ویرایش</a>';
-    echo '<a href="' . $_SERVER['PHP_SELF'] . '?delete=' . $x['Id'] . '">حذف</a></td>';
+    echo '<a href="' . $_SERVER['PHP_SELF'] . '?del=' . $x['Id'] . '">حذف</a></td>';
     echo '</tr>';
     }
     echo '</tbody>';
